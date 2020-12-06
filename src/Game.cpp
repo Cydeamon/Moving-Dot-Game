@@ -12,27 +12,32 @@ Game::Game()
 {
     cout << "Game init" << endl;
     graphics = new Graphics();
-
-    SDL_FillRect(graphics->getScreenSurface(), NULL, SDL_MapRGB(graphics->getScreenSurface()->format, 0, 0, 0));
-    graphics->updateWindow();
 }
 
 
 void Game::gameCycle()
 {
     cout << "Game cycle" << endl;
-    GameEvent gameEvent = NO_EVENT;
 
     int dotX = 55;
     int dotY = 55;
 
-    while (gameEvent != GAME_QUIT)
+    while (true)
     {
         gameEvent = checkEvents();
 
-        SDL_RenderDrawPoint(graphics->getRenderer(), dotX, dotY);
+        if (gameEvent == GAME_QUIT)
+        {
+            break;
+        }
 
-        graphics->updateWindow();
+        graphics->clearRenderer();
+
+        graphics->setDrawColor(255, 0, 0, 255);
+        SDL_RenderDrawPoint(graphics->getRenderer(), dotX, dotY);
+        graphics->setDrawColor(0, 0, 0, 255);
+
+        SDL_RenderPresent(graphics->getRenderer());
     }
 
     quit();
@@ -48,15 +53,14 @@ void Game::quit()
 }
 
 
-/**
- * @brief Check SDL Events
- */
 Game::GameEvent Game::checkEvents()
 {
-    while (SDL_PollEvent(sdlEvent) != 0)
+    SDL_Event sdlEvent;
+
+    while (SDL_PollEvent(&sdlEvent) != 0)
     {
         // Game quit
-        if (sdlEvent->type == SDL_QUIT)
+        if (sdlEvent.type == SDL_QUIT)
         {
             return GAME_QUIT;
         }

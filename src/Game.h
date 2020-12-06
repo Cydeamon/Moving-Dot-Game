@@ -11,7 +11,6 @@ class Game
 {
 private:
     Graphics *graphics;
-    SDL_Event *sdlEvent;
 
     enum GameEvent
     {

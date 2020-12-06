@@ -35,11 +35,9 @@ Graphics::Graphics()
         exit(1);
     }
 
-    screenSurface = SDL_GetWindowSurface(window);
-
     // Init renderer
-    renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 0);
+    renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 }
 
 
@@ -49,12 +47,6 @@ void Graphics::quit()
 
     SDL_DestroyWindow(window);
     SDL_Quit();
-}
-
-
-void Graphics::updateWindow()
-{
-    SDL_UpdateWindowSurface(window);
 }
 
 /*************************************************************************************/
@@ -69,18 +61,6 @@ SDL_Window *Graphics::getWindow() const
 void Graphics::setWindow(SDL_Window *window)
 {
     this->window = window;
-}
-
-
-SDL_Surface *Graphics::getScreenSurface() const
-{
-    return screenSurface;
-}
-
-
-void Graphics::setScreenSurface(SDL_Surface *screenSurface)
-{
-    this->screenSurface = screenSurface;
 }
 
 
@@ -105,4 +85,16 @@ SDL_Renderer *Graphics::getRenderer() const
 void Graphics::setRenderer(SDL_Renderer *renderer)
 {
     Graphics::renderer = renderer;
+}
+
+
+void Graphics::clearRenderer()
+{
+    SDL_RenderClear(renderer);
+}
+
+
+void Graphics::setDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha)
+{
+    SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }

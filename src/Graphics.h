@@ -12,23 +12,21 @@ class Graphics
 
 private:
     SDL_Window *window;
-    SDL_Surface *screenSurface;
-    SDL_DisplayMode displayMode;
     SDL_Renderer *renderer;
 
 public:
     Graphics();
     void quit();
     void updateWindow();
+    void clearRenderer();
 
-    SDL_Window *getWindow() const;
+    [[nodiscard]] SDL_Window *getWindow() const;
     void setWindow(SDL_Window *window);
-    SDL_Surface *getScreenSurface() const;
-    void setScreenSurface(SDL_Surface *screenSurface);
-    SDL_DisplayMode getDisplayMode() const;
+    [[nodiscard]] SDL_DisplayMode getDisplayMode() const;
     void setDisplayMode(SDL_DisplayMode displayMode);
-    SDL_Renderer *getRenderer() const;
+    [[nodiscard]] SDL_Renderer *getRenderer() const;
     void setRenderer(SDL_Renderer *renderer);
+    void setDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha);
 };
 
 #endif //MOVINGDOT_GRAPHICS_H
