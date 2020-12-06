@@ -26,6 +26,7 @@ void Game::gameCycle()
 
     while (true)
     {
+        // Handle game events
         gameEvent = checkEvents();
 
         if (gameEvent == GAME_QUIT)
@@ -33,6 +34,23 @@ void Game::gameCycle()
             break;
         }
 
+        switch (gameEvent)
+        {
+            case GAME_MOVE_DOWN:
+                dotY++;
+                break;
+            case GAME_MOVE_UP:
+                dotY--;
+                break;
+            case GAME_MOVE_LEFT:
+                dotX--;
+                break;
+            case GAME_MOVE_RIGHT:
+                dotX++;
+                break;
+        }
+
+        // Draw stuff
         graphics->clearRenderer();
 
         graphics->setDrawColor(255, 0, 0, 255);
@@ -57,8 +75,6 @@ void Game::quit()
 
 Game::GameEvent Game::checkEvents()
 {
-    SDL_Event sdlEvent;
-
     while (SDL_PollEvent(&sdlEvent) != 0)
     {
         // Game quit
@@ -66,7 +82,23 @@ Game::GameEvent Game::checkEvents()
         {
             return GAME_QUIT;
         }
+
+        // Keyboard input
+        if (sdlEvent.type == SDL_KEYDOWN)
+        {
+            switch (sdlEvent.key.keysym.sym)
+            {
+                case SDLK_UP:
+                    return GAME_MOVE_UP;
+                case SDLK_LEFT:
+                    return GAME_MOVE_LEFT;
+                case SDLK_RIGHT:
+                    return GAME_MOVE_RIGHT;
+                case SDLK_DOWN:
+                    return GAME_MOVE_DOWN;
+            }
+        }
     }
 
-    return NO_EVENT;
+    return GAME_NO_EVENT;
 }

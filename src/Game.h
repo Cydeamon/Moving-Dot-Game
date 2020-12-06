@@ -11,10 +11,14 @@ class Game
 {
 private:
     Graphics *graphics;
+    SDL_Event sdlEvent;
 
     enum GameEvent
     {
-        NO_EVENT, GAME_QUIT
+        GAME_NO_EVENT, GAME_QUIT,
+
+        // Movement events
+                GAME_MOVE_UP, GAME_MOVE_DOWN, GAME_MOVE_LEFT, GAME_MOVE_RIGHT
     };
 
     void quit();
