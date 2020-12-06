@@ -21,10 +21,12 @@ private:
         GAME_START_MOVE_DOWN,
         GAME_START_MOVE_LEFT,
         GAME_START_MOVE_RIGHT,
+        GAME_START_FAST_MOVEMENT,
         GAME_END_MOVE_UP,
         GAME_END_MOVE_DOWN,
         GAME_END_MOVE_LEFT,
-        GAME_END_MOVE_RIGHT
+        GAME_END_MOVE_RIGHT,
+        GAME_END_FAST_MOVEMENT
     };
 
     void quit();

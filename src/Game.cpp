@@ -24,11 +24,14 @@ void Game::gameCycle()
     int dotX = graphics->getWindowWidth() / 2;
     int dotY = graphics->getWindowHeight() / 2;
     int movementSpeed = 3;
+    int fastMovementSpeed = 10;
+    int currentMovementSpeed = movementSpeed;
 
     bool movingLeft = false;
     bool movingRight = false;
     bool movingUp = false;
     bool movingDown = false;
+    bool fastMovement = false;
 
     bool playerInGoalZone = false;
 
@@ -63,6 +66,9 @@ void Game::gameCycle()
             case GAME_START_MOVE_RIGHT:
                 movingRight = true;
                 break;
+            case GAME_START_FAST_MOVEMENT:
+                fastMovement = true;
+                break;
 
             case GAME_END_MOVE_DOWN:
                 movingDown = false;
@@ -76,28 +82,40 @@ void Game::gameCycle()
             case GAME_END_MOVE_RIGHT:
                 movingRight = false;
                 break;
+            case GAME_END_FAST_MOVEMENT:
+                fastMovement = false;
+                break;
         }
 
         /**********************************************************************/
         /************************** PLAYER MOVEMENT ***************************/
+        if (fastMovement)
+        {
+            currentMovementSpeed = fastMovementSpeed;
+        }
+        else
+        {
+            currentMovementSpeed = movementSpeed;
+        }
+
         if (movingDown)
         {
-            dotY += 3;
+            dotY += currentMovementSpeed;
         }
 
         if (movingUp)
         {
-            dotY -= 3;
+            dotY -= currentMovementSpeed;
         }
 
         if (movingLeft)
         {
-            dotX -= 3;
+            dotX -= currentMovementSpeed;
         }
 
         if (movingRight)
         {
-            dotX += 3;
+            dotX += currentMovementSpeed;
         }
 
         /**********************************************************************/
@@ -165,6 +183,8 @@ Game::GameEvent Game::checkEvents()
                     return GAME_START_MOVE_RIGHT;
                 case SDLK_DOWN:
                     return GAME_START_MOVE_DOWN;
+                case SDLK_LSHIFT:
+                    return GAME_START_FAST_MOVEMENT;
             }
         }
 
@@ -180,6 +200,8 @@ Game::GameEvent Game::checkEvents()
                     return GAME_END_MOVE_RIGHT;
                 case SDLK_DOWN:
                     return GAME_END_MOVE_DOWN;
+                case SDLK_LSHIFT:
+                    return GAME_END_FAST_MOVEMENT;
             }
         }
     }
