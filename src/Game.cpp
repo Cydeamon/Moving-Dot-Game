@@ -23,6 +23,7 @@ void Game::gameCycle()
     // Start position is at center of the screen
     int dotX = graphics->getWindowWidth() / 2;
     int dotY = graphics->getWindowHeight() / 2;
+    int movementSpeed = 3;
 
     while (true)
     {
@@ -37,16 +38,16 @@ void Game::gameCycle()
         switch (gameEvent)
         {
             case GAME_MOVE_DOWN:
-                dotY++;
+                dotY += movementSpeed;
                 break;
             case GAME_MOVE_UP:
-                dotY--;
+                dotY -= movementSpeed;
                 break;
             case GAME_MOVE_LEFT:
-                dotX--;
+                dotX -= movementSpeed;
                 break;
             case GAME_MOVE_RIGHT:
-                dotX++;
+                dotX += movementSpeed;
                 break;
         }
 
