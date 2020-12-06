@@ -37,7 +37,7 @@ Graphics::Graphics()
 
     // Init renderer
     renderer = SDL_CreateRenderer(window, 0, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
     // Get window size
     SDL_GetWindowSize(window, &windowWidth, &windowHeight);

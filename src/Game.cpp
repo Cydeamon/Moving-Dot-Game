@@ -20,12 +20,12 @@ void Game::gameCycle()
     cout << "Game cycle" << endl;
     GameEvent gameEvent;
 
-    // Start position is at center of the screen
+    // Start position at center of the screen
     int dotX = graphics->getWindowWidth() / 2;
     int dotY = graphics->getWindowHeight() / 2;
     int movementSpeed = 3;
     int fastMovementSpeed = 10;
-    int currentMovementSpeed = movementSpeed;
+    int currentMovementSpeed;
 
     bool movingLeft = false;
     bool movingRight = false;
@@ -33,7 +33,7 @@ void Game::gameCycle()
     bool movingDown = false;
     bool fastMovement = false;
 
-    bool playerInGoalZone = false;
+    bool playerInGoalZone;
 
     SDL_Rect goal;
     goal.w = 200;
@@ -136,7 +136,7 @@ void Game::gameCycle()
 
         // Draw goal
         graphics->setDrawColor(0, 255, 0, 255);
-        SDL_RenderDrawRect(graphics->getRenderer(), &goal);
+        SDL_RenderFillRect(graphics->getRenderer(), &goal);
 
         // Draw point
         graphics->setDrawColor(255, 0, 0, 255);
