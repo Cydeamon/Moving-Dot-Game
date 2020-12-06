@@ -30,9 +30,18 @@ void Game::gameCycle()
     bool movingUp = false;
     bool movingDown = false;
 
+    bool playerInGoalZone = false;
+
+    SDL_Rect goal;
+    goal.w = 200;
+    goal.h = 200;
+    goal.x = rand() % (graphics->getWindowWidth() - goal.w);
+    goal.y = rand() % (graphics->getWindowHeight() - goal.h);
+
     while (true)
     {
-        // Handle game events
+        /**********************************************************************/
+        /******************************* EVENTS *******************************/
         gameEvent = checkEvents();
 
         if (gameEvent == GAME_QUIT)
@@ -69,7 +78,8 @@ void Game::gameCycle()
                 break;
         }
 
-        // Movement
+        /**********************************************************************/
+        /************************** PLAYER MOVEMENT ***************************/
         if (movingDown)
         {
             dotY += 3;
@@ -90,13 +100,32 @@ void Game::gameCycle()
             dotX += 3;
         }
 
-        // Draw stuff
+        /**********************************************************************/
+        /***************************** GAME LOGIC *****************************/
+
+        // Check if player in goal zone
+        playerInGoalZone = (dotX < goal.x + goal.w && dotX > goal.x) && (dotY < goal.y + goal.h && dotY > goal.y);
+
+        if (playerInGoalZone)
+        {
+            goal.x = rand() % (graphics->getWindowWidth() - goal.w);
+            goal.y = rand() % (graphics->getWindowHeight() - goal.h);
+        }
+
+        /**********************************************************************/
+        /******************************** DRAW ********************************/
         graphics->clearRenderer();
 
+        // Draw goal
+        graphics->setDrawColor(0, 255, 0, 255);
+        SDL_RenderDrawRect(graphics->getRenderer(), &goal);
+
+        // Draw point
         graphics->setDrawColor(255, 0, 0, 255);
         SDL_RenderDrawPoint(graphics->getRenderer(), dotX, dotY);
-        graphics->setDrawColor(0, 0, 0, 255);
 
+        // Draw background color
+        graphics->setDrawColor(0, 0, 0, 255);
         SDL_RenderPresent(graphics->getRenderer());
     }
 
