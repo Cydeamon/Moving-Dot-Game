@@ -12,12 +12,12 @@ class Graphics
 
 private:
     SDL_Window *window;
+    SDL_DisplayMode displayMode;
     SDL_Renderer *renderer;
 
 public:
     Graphics();
     void quit();
-    void updateWindow();
     void clearRenderer();
 
     [[nodiscard]] SDL_Window *getWindow() const;

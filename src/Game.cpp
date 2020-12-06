@@ -18,6 +18,7 @@ Game::Game()
 void Game::gameCycle()
 {
     cout << "Game cycle" << endl;
+    GameEvent gameEvent;
 
     int dotX = 55;
     int dotY = 55;
