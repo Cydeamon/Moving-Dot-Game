@@ -15,6 +15,9 @@ private:
     SDL_DisplayMode displayMode;
     SDL_Renderer *renderer;
 
+    int windowWidth;
+    int windowHeight;
+
 public:
     Graphics();
     void quit();
@@ -27,6 +30,9 @@ public:
     [[nodiscard]] SDL_Renderer *getRenderer() const;
     void setRenderer(SDL_Renderer *renderer);
     void setDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha);
+
+    int getWindowWidth() const;
+    int getWindowHeight() const;
 };
 
 #endif //MOVINGDOT_GRAPHICS_H

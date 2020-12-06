@@ -20,8 +20,9 @@ void Game::gameCycle()
     cout << "Game cycle" << endl;
     GameEvent gameEvent;
 
-    int dotX = 55;
-    int dotY = 55;
+    // Start position is at center of the screen
+    int dotX = graphics->getWindowWidth() / 2;
+    int dotY = graphics->getWindowHeight() / 2;
 
     while (true)
     {

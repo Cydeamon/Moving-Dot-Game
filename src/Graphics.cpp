@@ -98,3 +98,15 @@ void Graphics::setDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha)
 {
     SDL_SetRenderDrawColor(renderer, red, green, blue, alpha);
 }
+
+
+int Graphics::getWindowWidth() const
+{
+    return windowWidth;
+}
+
+
+int Graphics::getWindowHeight() const
+{
+    return windowHeight;
+}
