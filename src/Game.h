@@ -15,10 +15,16 @@ private:
 
     enum GameEvent
     {
-        GAME_NO_EVENT, GAME_QUIT,
-
-        // Movement events
-                GAME_MOVE_UP, GAME_MOVE_DOWN, GAME_MOVE_LEFT, GAME_MOVE_RIGHT
+        GAME_NO_EVENT,
+        GAME_QUIT,
+        GAME_START_MOVE_UP,
+        GAME_START_MOVE_DOWN,
+        GAME_START_MOVE_LEFT,
+        GAME_START_MOVE_RIGHT,
+        GAME_END_MOVE_UP,
+        GAME_END_MOVE_DOWN,
+        GAME_END_MOVE_LEFT,
+        GAME_END_MOVE_RIGHT
     };
 
     void quit();

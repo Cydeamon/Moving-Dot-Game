@@ -25,6 +25,11 @@ void Game::gameCycle()
     int dotY = graphics->getWindowHeight() / 2;
     int movementSpeed = 3;
 
+    bool movingLeft = false;
+    bool movingRight = false;
+    bool movingUp = false;
+    bool movingDown = false;
+
     while (true)
     {
         // Handle game events
@@ -37,18 +42,52 @@ void Game::gameCycle()
 
         switch (gameEvent)
         {
-            case GAME_MOVE_DOWN:
-                dotY += movementSpeed;
+            case GAME_START_MOVE_DOWN:
+                movingDown = true;
                 break;
-            case GAME_MOVE_UP:
-                dotY -= movementSpeed;
+            case GAME_START_MOVE_UP:
+                movingUp = true;
                 break;
-            case GAME_MOVE_LEFT:
-                dotX -= movementSpeed;
+            case GAME_START_MOVE_LEFT:
+                movingLeft = true;
                 break;
-            case GAME_MOVE_RIGHT:
-                dotX += movementSpeed;
+            case GAME_START_MOVE_RIGHT:
+                movingRight = true;
                 break;
+
+            case GAME_END_MOVE_DOWN:
+                movingDown = false;
+                break;
+            case GAME_END_MOVE_UP:
+                movingUp = false;
+                break;
+            case GAME_END_MOVE_LEFT:
+                movingLeft = false;
+                break;
+            case GAME_END_MOVE_RIGHT:
+                movingRight = false;
+                break;
+        }
+
+        // Movement
+        if (movingDown)
+        {
+            dotY += 3;
+        }
+
+        if (movingUp)
+        {
+            dotY -= 3;
+        }
+
+        if (movingLeft)
+        {
+            dotX -= 3;
+        }
+
+        if (movingRight)
+        {
+            dotX += 3;
         }
 
         // Draw stuff
@@ -90,13 +129,28 @@ Game::GameEvent Game::checkEvents()
             switch (sdlEvent.key.keysym.sym)
             {
                 case SDLK_UP:
-                    return GAME_MOVE_UP;
+                    return GAME_START_MOVE_UP;
                 case SDLK_LEFT:
-                    return GAME_MOVE_LEFT;
+                    return GAME_START_MOVE_LEFT;
                 case SDLK_RIGHT:
-                    return GAME_MOVE_RIGHT;
+                    return GAME_START_MOVE_RIGHT;
                 case SDLK_DOWN:
-                    return GAME_MOVE_DOWN;
+                    return GAME_START_MOVE_DOWN;
+            }
+        }
+
+        if (sdlEvent.type == SDL_KEYUP)
+        {
+            switch (sdlEvent.key.keysym.sym)
+            {
+                case SDLK_UP:
+                    return GAME_END_MOVE_UP;
+                case SDLK_LEFT:
+                    return GAME_END_MOVE_LEFT;
+                case SDLK_RIGHT:
+                    return GAME_END_MOVE_RIGHT;
+                case SDLK_DOWN:
+                    return GAME_END_MOVE_DOWN;
             }
         }
     }
